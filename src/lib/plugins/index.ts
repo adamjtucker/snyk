@@ -1,4 +1,4 @@
-import * as dockerPlugin from 'snyk-docker-plugin';
+import * as legacyDockerPlugin from 'legacy-snyk-docker-plugin';
 import * as rubygemsPlugin from './rubygems';
 import * as mvnPlugin from 'snyk-mvn-plugin';
 import * as gradlePlugin from 'snyk-gradle-plugin';
@@ -15,10 +15,10 @@ import { UnsupportedPackageManagerError } from '../errors';
 
 export function loadPlugin(
   packageManager: SupportedPackageManagers | undefined,
-  options: types.Options = {},
+  options: types.Options & { isDockerUser?: boolean } = {},
 ): types.Plugin {
   if (options.docker) {
-    return dockerPlugin;
+    return legacyDockerPlugin;
   }
 
   switch (packageManager) {

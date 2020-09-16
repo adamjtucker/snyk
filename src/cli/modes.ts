@@ -17,10 +17,7 @@ const modes: Record<string, ModeData> = {
   container: {
     allowedCommands: ['test', 'monitor'],
     config: (args): [] => {
-      args['docker'] = true;
-      args['experimental'] = true;
-      args['app-vulns'] = args.json ? false : true;
-
+      args['container'] = true;
       return args;
     },
   },
