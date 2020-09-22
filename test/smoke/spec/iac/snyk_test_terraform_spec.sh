@@ -3,16 +3,17 @@
 Describe "Snyk iac test command"
   Before snyk_login
   After snyk_logout
+
   Describe "terraform single file scan"
     It "finds issues in terraform file"
       When run snyk iac test ../fixtures/iac-terraform/sg_open_ssh.tf
       The status should be failure # issues found
       The output should include "Testing ../fixtures/iac-terraform/sg_open_ssh.tf..."
-      # Outputs issues   
+      # Outputs issues
       The output should include "Infrastructure as code issues:"
       The output should include "✗ Security Group allows open ingress [Medium Severity] [SNYK-CC-TF-1] in Security Group"
       The output should include "introduced by resource > aws_security_group[allow_ssh] > ingress"
-      
+
       # Outputs Summary
       The output should include "Organization:"
       The output should include "Type:              Terraform"
@@ -27,9 +28,9 @@ Describe "Snyk iac test command"
       When run snyk iac test ../fixtures/iac-terraform/sg_open_ssh.tf --severity-threshold=high
       The status should be success # no issues found
       The output should include "Testing ../fixtures/iac-terraform/sg_open_ssh.tf..."
-      # Outputs issues   
+      # Outputs issues
       The output should include "Infrastructure as code issues:"
-      
+
       # Outputs Summary
       The output should include "Organization:"
       The output should include "Type:              Terraform"
